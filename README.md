@@ -2,6 +2,32 @@ Problem statement
 -----------------
 It's dinner time ! Create an application that helps users find the most relevant recipes that they can prepare with the ingredients that they have at home
 
+Open questions (issues):
+---
+- How to interpret the "most relevant"?
+- How do we know what are the ingredients from human written sentences? (white sugar? brown sugar?) (One way to use: "ingreedy") Do we need to know it? Maybe wouldn't be enough to have a list of ingredient names to check to have in the recipe ingredients? That would live place to false positives like: "salt and pepper to taste" if we have just salt or just pepper, then let the human knowledge to filter out the false positives?
+- If we have the ingredients at home to make the next ingredient for a more sophisticated recipe (a.k.a. recursivity) should we include that in the match list? ("hamburger buns" can be made at home for "Best Sloppy Joes", but at home we might not have "hamburger buns" out of the box)
+- Do we need to check the necessary quantity as well?
+ If so then:
+  - What to do with unparsable ingredients: "boiling water as needed", "salt and pepper to taste", "hamburger buns", "salt to taste", "canola oil for frying", "lemon, zested and juiced"
+  - How to cannonicalize the human written quantitty in the ingredient?
+  - How to cannonicalize the quantity? (3/4 cup of ranch dressing)
+- How to handle the recipes which can't be parsed?
+
+The above questions show that what is easy for a human is hard for a computer. 
+
+Decision: 
+---
+Let the human do what He is strong at like comprehending the unit of measurements converting between "spoon of wheat" to "gram", and let the computer do the simple huge data filtering things.
+
+DB:
+-----
+Inventory of home ingredients a list of max 2 word ingredients.
+
+Algorythm:
+----------
+If all the ingredients for a recipe contain any of the 2 word ingredients from home then the recipe will be considered "relevant".
+
 Objective
 ---------
 Deliver an application prototype to answer the above problem statement.
@@ -11,7 +37,7 @@ By prototype, we mean:
 something usable, yet as simple as possible
 UI / design is not important
 we do not expect features which are outside the basic scope of the problem
-We expect to use this prototype as a starting point to discuss current implenentation details, as well as ideas for improvement.
+We expect to use this prototype as a starting point to discuss current implementation details, as well as ideas for improvement.
 
 Tech must-haves
 ---------------
