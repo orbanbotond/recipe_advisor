@@ -4,21 +4,25 @@ namespace :import do
     raw_data = File.read('recipes-en.json')
     recipes = JSON.parse(raw_data)
     not_parsed_recipes = []
-    recipes.each_with_index do |recipe, index|
-      puts "Recipe:#{recipe["title"]}"
+    recipes.each do |recipe|
+      receipt = Receipt.create title: recipe["title"],
+                     cook_time: recipe["cook_time"],
+                     prep_time: recipe["prep_time"],
+                     rating: recipe["rating"],
+                     cuisine: recipe["cuisine"],
+                     category: recipe["category"],
+                     author: recipe["author"],
+                     author: recipe["author"],
+                     image: recipe["image"]
       recipe["ingredients"].each do |ingredient_for_recipe|
-        puts "Parsing: #{ingredient_for_recipe}"
-        ingredient = Ingreedy.parse(ingredient_for_recipe)
-        puts "Amount: #{ingredient.amount}"
-        puts "Unit: #{ingredient.unit}"
-        puts "Ingredient: #{ingredient.ingredient}"
+        receipt.ingredients.create name: ingredient_for_recipe
       rescue
         not_parsed_recipes << recipe
       end
-      puts "Indexed #{index +1} recipe"
+      puts "Indexed #{Receipt.count } recipes"
     end
     puts "Not able to parse: #{not_parsed_recipes.length} recipes"
-    puts "Totally indexed recipes: #{recipes.length - not_parsed_recipes.length}"
+    puts "Totally indexed recipes: #{Receipt.count - not_parsed_recipes.length}"
     puts "---"
     puts "Recipes not parsed:"
     not_parsed_recipes.each do |not_parsed_recipe|

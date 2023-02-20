@@ -1,0 +1,11 @@
+div class="container"
+  table class="table table-sm table-striped table-hover" size="sm"
+    thead
+      tr
+        th Home Ingredients
+        th
+    tbody
+      = render @home_ingredients
+  div class="container"
+    = turbo_frame_tag 'new_home_ingredient' do 
+      - yield :new_home_ingredient 

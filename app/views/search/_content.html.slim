@@ -1,0 +1,16 @@
+td= link_to "Search Relevant Recipes", search_index_path, class: 'btn btn-outline-danger btn-sm'
+= turbo_frame_tag 'search_results'
+  - if @relevant_receipts
+    div class="container"
+      table class="table table-sm table-striped table-hover" size="sm"
+        thead
+          tr
+            th Receipts
+            th Cook time
+            th Prep time
+            th Rating
+            th Cuisine
+            th
+        tbody
+          - @relevant_receipts.first(10).each do |receipt|
+            = render partial: receipt

@@ -8,5 +8,4 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body
-    = render partial: 'home_ingredients/content'
-    = render partial: 'search/content'
+    = yield

@@ -1,0 +1,18 @@
+div
+  p= @receipt.title
+  p= @receipt.cook_time
+  p= @receipt.prep_time
+  p= @receipt.rating
+  p= @receipt.cuisine
+  p= @receipt.author
+  p= @receipt.category
+  p
+		img src="#{@receipt.image}" width=50
+  table class="table table-sm table-striped table-hover" size="sm"
+    thead
+      tr
+        th Ingredients & Receipt
+    tbody
+      - @receipt.ingredients.each do |ingredient|
+        tr
+          td= ingredient.name

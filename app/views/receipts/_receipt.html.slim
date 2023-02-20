@@ -1,0 +1,8 @@
+tr
+  th= link_to receipt.title, receipt_path(receipt)
+  th= receipt.cook_time
+  th= receipt.prep_time
+  th= receipt.rating
+  th= receipt.cuisine
+  th
+		img src="#{receipt.image}" width=50
