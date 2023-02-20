@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title RecipeAdvisor
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  body
+    div class="container"
+      table class="table table-sm table-striped table-hover" size="sm"
+        thead
+          tr
+            th Home Ingredient
+            th Action
+        tbody
+          = render @home_ingredients
+      div class="container"
+        = turbo_frame_tag 'new_home_ingredient' do 
+          - yield :new_home_ingredient 
