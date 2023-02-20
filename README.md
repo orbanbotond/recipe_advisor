@@ -67,3 +67,14 @@ the codebase : in a git repo (share it with @quentindemetz @tdeo @rpechayr @soyo
 the database structure
 the application, running on Heroku or on a personal server.
 please submit links to the GitHub repo and the hosted application via this form and if you're on Mac, make sure your browser has permission to share the screen
+
+For the pennylane team:
+-----------------------
+- step 0: docker-compose up
+- step 1: bundle
+- step 2: bundle exec rails db:setup
+- step 3: bundle exec rake import:recipes
+- step 4: bundle exec rails s
+- step 5: visit http://localhost:3000 (then play with it)
+
+
