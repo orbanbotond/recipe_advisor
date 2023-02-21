@@ -1,13 +1,28 @@
 div
-  p= @receipt.title
-  p= @receipt.cook_time
-  p= @receipt.prep_time
-  p= @receipt.rating
-  p= @receipt.cuisine
-  p= @receipt.author
-  p= @receipt.category
-  p
-		img src="#{@receipt.image}" width=50
+  table class="table table-sm table-striped table-hover" size="sm"
+    tbody
+      tr
+        td Title
+        td= @receipt.title
+      tr
+        td Cook time
+        td= @receipt.cook_time
+      tr
+        td Preparation time
+        td= @receipt.prep_time
+      tr
+        td Rating
+        td= @receipt.rating
+      tr
+        td Cuisine
+        td= @receipt.cuisine
+      tr
+        td Author
+        td= @receipt.author
+      tr
+        td Category
+        td= @receipt.category
+	img src="#{@receipt.image}" width=50
   table class="table table-sm table-striped table-hover" size="sm"
     thead
       tr
