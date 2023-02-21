@@ -7,5 +7,4 @@ div class="container"
     tbody
       = render @home_ingredients
   div class="container"
-    = turbo_frame_tag 'new_home_ingredient' do
-      = link_to "Add new Home Ingredient", new_home_ingredient_path, class: 'btn  btn-sm'
+    = render partial: 'home_ingredients/add_new_ingredient'
