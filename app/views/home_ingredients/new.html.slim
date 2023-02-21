@@ -1,4 +1,4 @@
-- content_for :new_home_ingredient do
+= turbo_frame_tag 'new_home_ingredient' do
   = form_with model: @home_ingredient, data: { turbo: :false } do |form|
     = form.label "Ingredient Name"
     = form.text_field :name

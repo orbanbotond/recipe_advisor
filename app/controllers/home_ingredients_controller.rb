@@ -14,8 +14,5 @@ class HomeIngredientsController < ApplicationController
 
   def new
     @home_ingredient = HomeIngredient.new
-    @home_ingredients = HomeIngredient.all
-
-    render layout: 'application'
   end
 end
