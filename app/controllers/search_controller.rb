@@ -4,6 +4,7 @@ class SearchController < ApplicationController
   before_action :load_home_ingredients
 
   def index
+    @relevancy_params =  params[:relevant]
     @relevant_receipts = RelevantRecipes.new.call(params)
 
     @relevant_receipts = @relevant_receipts.page params[:page]

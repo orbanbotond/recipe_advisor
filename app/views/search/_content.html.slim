@@ -1,4 +1,4 @@
-td= link_to "Search Simplest Recipes", search_index_path, class: 'btn btn-outline-danger btn-sm'
+td= link_to "Search Simplest Recipes", search_index_path(relevant: :most_simple_recipes), class: 'btn btn-outline-danger btn-sm'
 td= link_to "Search Most Complex Recipes", search_index_path(relevant: :most_ingredients), class: 'btn btn-outline-danger btn-sm'
 = turbo_frame_tag 'search_results'
   - if @relevant_receipts
@@ -15,4 +15,4 @@ td= link_to "Search Most Complex Recipes", search_index_path(relevant: :most_ing
         tbody
           - @relevant_receipts.first(100).each do |receipt|
             = render partial: receipt
-    = paginate @relevant_receipts
+    = paginate @relevant_receipts, params: { relevant: @relevancy_params }
