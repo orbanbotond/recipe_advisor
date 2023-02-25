@@ -59,10 +59,18 @@ RSpec.describe RelevantRecipes do
         let!(:country_bread_ingredient_flour) { create(:ingredient, name: 'Brown Flour', receipt: country_bread_receipt) }
         let!(:country_bread_ingredient_egg) { create(:ingredient, name: 'egg', receipt: country_bread_receipt) }
 
-        it 'order the recipes by their ingredient number' do
-          expect(query.length).to equal(3)
-          expect(query.first.id).to eq(country_bread_receipt.id)
-          expect(query.last.id).to eq(pizza_receipt.id)
+        it 'orders the recipes by their ingredient number ascending' do
+          expect(query.first.ingredient_number).to eq(2)
+          expect(query.last.ingredient_number).to eq(4)
+        end
+
+        context 'querying for the most complex recipes' do
+          subject(:query) { described_class.new().call({relevant: :most_ingredients}) }
+
+          it 'orders the recipes by their ingredient number ascending' do
+            expect(query.first.ingredient_number).to eq(4)
+            expect(query.last.ingredient_number).to eq(2)
+          end
         end
       end
     end
