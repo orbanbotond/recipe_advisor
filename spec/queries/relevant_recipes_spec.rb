@@ -8,13 +8,15 @@ RSpec.describe RelevantRecipes do
   let!(:pizza_ingredient_flour) { create(:ingredient, name: 'White Flour', receipt: pizza_receipt) }
   let!(:pizza_ingredient_egg) { create(:ingredient, name: 'egg', receipt: pizza_receipt) }
   let!(:pizza_ingredient_yeast) { create(:ingredient, name: 'yeast', receipt: pizza_receipt) }
+  let!(:pizza_ingredient_tomato) { create(:ingredient, name: ' sweet tomato from countryside', receipt: pizza_receipt) }
 
   let!(:home_ingredient_flour) { create(:home_ingredient, name: 'flour') }
   let!(:home_ingredient_egg) { create(:home_ingredient, name: 'egg') }
+  let!(:home_ingredient_tomato) { create(:home_ingredient, name: 'tomato') }
 
   context 'when one of the ingredients of the recipe is not found at home' do
     it 'returns 0 recipes' do
-      expect(query.size).to equal(0)
+      expect(query.length).to equal(0)
     end
   end
 
@@ -22,7 +24,7 @@ RSpec.describe RelevantRecipes do
     let!(:home_ingredient_yiest) { create(:home_ingredient, name: 'Yeast') }
 
     it 'returns the matching recipes using case insensitive search' do
-      expect(query.size).to equal(1)
+      expect(query.length).to equal(1)
     end
 
     context 'when there are 2 receipts with all the ingredients having at home' do
@@ -32,7 +34,7 @@ RSpec.describe RelevantRecipes do
       let!(:home_made_bread_ingredient_yeast) { create(:ingredient, name: 'yeast', receipt: home_made_bread_receipt) }
 
       it 'returns the 2 matching recipes using case insensitive search' do
-        expect(query.size).to equal(2)
+        expect(query.length).to equal(2)
         expect(query).to include(home_made_bread_receipt)
         expect(query).to include(pizza_receipt)
         expect(query).to_not include(sausage_receipt)
@@ -45,10 +47,22 @@ RSpec.describe RelevantRecipes do
         let!(:home_made_brown_bread_ingredient_yeast) { create(:ingredient, name: 'yeast', receipt: home_made_brown_bread_receipt) }
 
         it 'returns the 2 matching recipes using case insensitive search' do
-          expect(query.size).to equal(3)
+          expect(query.length).to equal(3)
           expect(query).to include(home_made_bread_receipt)
           expect(query).to include(home_made_brown_bread_receipt)
           expect(query).to include(pizza_receipt)
+        end
+      end
+
+      context 'relevancy' do
+        let!(:country_bread_receipt) { create(:receipt, title: 'Brown Bread') }
+        let!(:country_bread_ingredient_flour) { create(:ingredient, name: 'Brown Flour', receipt: country_bread_receipt) }
+        let!(:country_bread_ingredient_egg) { create(:ingredient, name: 'egg', receipt: country_bread_receipt) }
+
+        it 'order the recipes by their ingredient number' do
+          expect(query.length).to equal(3)
+          expect(query.first.id).to eq(country_bread_receipt.id)
+          expect(query.last.id).to eq(pizza_receipt.id)
         end
       end
     end
