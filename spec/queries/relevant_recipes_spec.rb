@@ -65,9 +65,9 @@ RSpec.describe RelevantRecipes do
         end
 
         context 'querying for the most complex recipes' do
-          subject(:query) { described_class.new().call({relevant: :most_ingredients}) }
+          subject(:query) { described_class.new().call( {most_relevant: { most_ingredients: :desc} } ) }
 
-          it 'orders the recipes by their ingredient number ascending' do
+          it 'orders the recipes by their ingredient number descending' do
             expect(query.first.ingredient_number).to eq(4)
             expect(query.last.ingredient_number).to eq(2)
           end
