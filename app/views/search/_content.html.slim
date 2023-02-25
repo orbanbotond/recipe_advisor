@@ -14,3 +14,4 @@ td= link_to "Search Relevant Recipes", search_index_path, class: 'btn btn-outlin
         tbody
           - @relevant_receipts.first(100).each do |receipt|
             = render partial: receipt
+    = paginate @relevant_receipts
