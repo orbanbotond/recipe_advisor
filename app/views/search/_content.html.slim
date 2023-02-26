@@ -1,5 +1,4 @@
-td= link_to "Search Simplest Recipes", search_index_path(most_relevant_by_ingredient_nr: :asc), class: 'btn btn-outline-danger btn-sm'
-td= link_to "Search Most Complex Recipes", search_index_path(most_relevant_by_ingredient_nr: :desc), class: 'btn btn-outline-danger btn-sm'
+td= link_to "Search Recipes", search_index_path, class: 'btn btn-outline-danger btn-sm'
 = turbo_frame_tag 'search_results'
   - if @relevant_receipts
     div class="container"
@@ -8,12 +7,13 @@ td= link_to "Search Most Complex Recipes", search_index_path(most_relevant_by_in
           tr
             th Receipts
             th
-              =link_to "Cook Time", search_index_path(most_relevant_by_ingredient_nr: @relevancy_params[:most_relevant][:most_ingredients], second_relevant: second_relevant_params(@relevancy_params))
+              =link_to "Cook Time", search_index_path( second_relevant: second_relevant_params(@relevancy_params))
             th Prep time
             th Rating
             th Cuisine
+            th Relevancy Score
             th
         tbody
-          - @relevant_receipts.first(100).each do |receipt|
+          - @relevant_receipts.each do |receipt|
             = render partial: receipt
     = paginate @relevant_receipts, params: @relevancy_params

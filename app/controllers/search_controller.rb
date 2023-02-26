@@ -4,7 +4,7 @@ class SearchController < ApplicationController
   before_action :load_home_ingredients
 
   def index
-    @relevancy_params = { second_relevant: {cook_time: :asc}, most_relevant: { most_ingredients: :asc} }.deep_merge(most_relevant: { most_ingredients: params[:most_relevant_by_ingredient_nr] } )
+    @relevancy_params = { second_relevant: {cook_time: :asc}}
     @relevancy_params = @relevancy_params.merge(second_relevant: second_relevant_sort_params) if params[:second_relevant].present?
 
     @relevant_receipts = RelevantRecipes.new.call(@relevancy_params)

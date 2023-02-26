@@ -4,5 +4,6 @@ tr
   th= receipt.prep_time
   th= receipt.rating
   th= receipt.cuisine
+  th= number_to_percentage(receipt.relevancy * 100, precision: 2)
   th
 		img src="#{receipt.image}" width=50

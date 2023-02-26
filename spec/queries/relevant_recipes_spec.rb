@@ -15,8 +15,8 @@ RSpec.describe RelevantRecipes do
   let!(:home_ingredient_tomato) { create(:home_ingredient, name: 'tomato') }
 
   context 'when one of the ingredients of the recipe is not found at home' do
-    it 'returns 0 recipes' do
-      expect(query.length).to equal(0)
+    it 'returns 1 recipes with a relevancy below 1 because it misses one ingredient' do
+      expect(query.first.relevancy).to be < 1
     end
   end
 
@@ -60,17 +60,8 @@ RSpec.describe RelevantRecipes do
         let!(:country_bread_ingredient_egg) { create(:ingredient, name: 'egg', receipt: country_bread_receipt) }
 
         it 'orders the recipes by their ingredient number ascending' do
-          expect(query.first.ingredient_number).to eq(2)
-          expect(query.last.ingredient_number).to eq(4)
-        end
-
-        context 'querying for the most complex recipes' do
-          subject(:query) { described_class.new().call( {most_relevant: { most_ingredients: :desc} } ) }
-
-          it 'orders the recipes by their ingredient number descending' do
-            expect(query.first.ingredient_number).to eq(4)
-            expect(query.last.ingredient_number).to eq(2)
-          end
+          expect(query.first.relevancy).to eq(1)
+          expect(query.last.relevancy).to eq(1)
         end
       end
     end
