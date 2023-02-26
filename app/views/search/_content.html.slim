@@ -7,8 +7,9 @@ td= link_to "Search Recipes", search_index_path, class: 'btn btn-outline-danger 
           tr
             th Receipts
             th
-              =link_to "Cook Time", search_index_path( second_relevant: second_relevant_params(@relevancy_params))
-            th Prep time
+              =link_to "Cook Time", search_index_path( second_relevant: second_relevant_params(@relevancy_params, :cook_time))
+            th
+              =link_to "Prep Time", search_index_path( second_relevant: {prep_time: :asc}.merge(second_relevant_params(@relevancy_params, :prep_time)))
             th Rating
             th Cuisine
             th Relevancy Score

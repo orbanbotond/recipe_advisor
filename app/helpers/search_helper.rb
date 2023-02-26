@@ -7,12 +7,7 @@ module SearchHelper
 		end
 	end
 
-	def second_relevant_key(old_params)
-		old_params[:second_relevant].keys.first
-	end
-
-	def second_relevant_params(old_params)
-		key = second_relevant_key(old_params)
+	def second_relevant_params(old_params, key)
 		inverted_direction = invert_search_direction(old_params[:second_relevant][key])
 		{ key => inverted_direction }
 	end
