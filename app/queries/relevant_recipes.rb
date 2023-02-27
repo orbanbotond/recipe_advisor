@@ -22,6 +22,10 @@ class RelevantRecipes
     # SQL
     # array_of_receipts = Receipt.find_by_sql(sql)
 
+    # The below formula can be scaled up to any number of multipliers ad dividers
+    # By:
+    # - adding a CTE for the new multiplier/divider
+    # - adding the new multiplier into the formula and add the CTE into the Inner Join
     receipts = Receipt.with(total_ingredients_found: Receipt.joins(:ingredients)
                                                  .joins("INNER JOIN home_ingredients hi ON ingredients.name ILIKE concat('%',hi.name,'%')")
                                                  .select("receipts.id, count(1) as total_ingredients_found")
@@ -31,6 +35,8 @@ class RelevantRecipes
                                                   .group(:id))
            .joins('INNER JOIN total_ingredients_found ON total_ingredients_found.id = receipts.id')
            .joins('INNER JOIN total_ingredients_needed ON total_ingredients_needed.id = receipts.id')
+           # Below is query containing the business calculation
+           # The formula can be scaled up to any number of multipliers ad dividers
            .select('receipts.* , total_ingredients_found.total_ingredients_found*1.00/total_ingredients_needed.total_ingredients_needed AS relevancy')
            .order(relevancy: :desc)
 
