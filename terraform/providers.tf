@@ -4,12 +4,12 @@
 terraform {
   required_providers {
     docker = {
-      source    = "kreuzwerker/docker"
-      version   = "~> 2.20.0"
+      source  = "kreuzwerker/docker"
+      version = "~> 2.20.0"
     }
     aws = {
-      source    = "hashicorp/aws"
-      version   = "~> 4.16"
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
     }
   }
 }
@@ -17,7 +17,7 @@ terraform {
 provider "docker" {}
 
 provider "aws" {
-  region        = var.region
-  access_key    = var.access_key
-  secret_key    = var.secret_access_key
+  region     = var.region
+  access_key = var.access_key
+  secret_key = var.secret_access_key
 }
